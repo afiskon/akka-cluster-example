@@ -25,10 +25,11 @@ class ClusterListener extends Actor with ActorLogging {
     case UnreachableMember(member) =>
       log.info(s"[Listener] node is unreachable: $member")
 
-    case MemberRemoved(member, previousStatus) =>
-      log.info(s"[Listener] node is removed: $member after $previousStatus")
+    case MemberRemoved(member, prevStatus) =>
+      log.info(s"[Listener] node is removed: $member after $prevStatus")
 
-    case _: MemberEvent => // do nothing
+    case ev: MemberEvent =>
+      log.info(s"[Listener] event: $ev")
   }
 }
 
